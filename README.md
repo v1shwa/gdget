@@ -23,6 +23,7 @@ gdget 1rcZ42siSqpLlVx2LRR_xjD7uJA8twKEa
 ```
 
 ### Requirements
+- Python >=2.6 & >=3.4 (does not support 3.3)
 - requests
 - tqdm
 - pytest (optional, to run tests)
