@@ -28,7 +28,7 @@ setup(
     name = 'gdget',
     version = __version__,
     description = 'Google drive URLs downloader for command line.',
-    long_description = open("./README.md").read(),
+    long_description = open("./README.rst").read(),
     url = 'https://github.com/v1shwa/gdget',
     author = 'Vishwa',
     author_email = 'v1shwa@yahoo.com',
