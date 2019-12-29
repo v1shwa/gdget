@@ -2,14 +2,13 @@
 from subprocess import PIPE, Popen as popen
 import unittest
 import os.path
-import warnings
 
 class TestGdGet(unittest.TestCase):
 
     def get_command_output(self, command):
         p = popen(command, stdout=PIPE, stderr=PIPE)
         p.wait()
-        (out, err) = p.communicate()  
+        (_out, err) = p.communicate()  
         return err
 
     def test_by_id(self):

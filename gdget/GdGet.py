@@ -12,7 +12,7 @@ class GdError(Exception):
     '''Raised When the Google drive is invalid or non-downloadable(native gdrive format)'''
     pass
 
-class GdGet(object):
+class GdGet:
     """Class to download Google drive Links"""
     def __init__(self, options):
         self.options = options
@@ -60,7 +60,7 @@ class GdGet(object):
             else:
                 # defaults to thinking url_id as url
                 url_id = url
-        except AttributeError as e:
+        except AttributeError:
             raise GdError("Couldn't parse the given google drive link. Please try it in the browser & enter the final url you see in the address bar post all redirects.")
 
         return url_id
@@ -79,7 +79,7 @@ class GdGet(object):
         """
         if self.options.output_document:
             return self.options.output_document
-        val, params = cgi.parse_header(header)
+        _, params = cgi.parse_header(header)
         return params['filename']
 
     def _confirm_download(self, url_id):
@@ -99,7 +99,7 @@ class GdGet(object):
         # small text-based files are available on single call
         try:
             title = self._save_to_file(r, self._parse_file_name( r.headers['Content-Disposition']))
-        except KeyError as e:
+        except KeyError:
             # need confirmation for other files
             title = self._confirm_download(url_id)
         return title
