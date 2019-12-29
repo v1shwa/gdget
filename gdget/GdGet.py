@@ -9,9 +9,9 @@ import requests
 
 
 class GdError(Exception):
-    """Raised When the Google drive is invalid or non-downloadable(native gdrive format)"""
-
-    pass
+    """Raised When the Google drive is invalid 
+    or  non-downloadable ( native gdrive format like doc, sheet etc.)
+    """
 
 
 class GdGet:
@@ -21,17 +21,17 @@ class GdGet:
         self.options = options
         self.session = requests.Session()
 
-    def _save_to_file(self, r, filename):
+    def _save_to_file(self, response, filename):
         """Save content of <Requests> object to file
-        
+
         Arguments:
-            r {requests.models.Response} -- Requests to stream data to file
+            response {requests.models.Response} -- Requests to stream data to file
             filename {string} -- filename to save to
-        
+
         Returns:
             string -- filename if success
         """
-        total_size = int(r.headers.get("content-length", 0))
+        total_size = int(response.headers.get("content-length", 0))
         pbar = tqdm(
             initial=0,
             total=total_size,
@@ -40,22 +40,22 @@ class GdGet:
             desc=filename,
             disable=self.options.quiet,
         )
-        with open(filename, "wb") as f:
-            for chunk in r.iter_content(chunk_size=1024):
+        with open(filename, "wb") as file_handler:
+            for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
-                    f.write(chunk)
+                    file_handler.write(chunk)
                     pbar.update(1024)
         return filename
 
     def parse_drive_url(self, url):
         """Parses Google Drive link & return URL ID
-        
+
         Arguments:
             url {string} -- Google Drive url or ID
-        
+
         Returns:
             string -- URL ID
-        
+
         Raises:
             GdError -- If the google drive link is not valid/parse-able.
         """
@@ -79,13 +79,13 @@ class GdGet:
 
     def _parse_file_name(self, header):
         """Parse <Requests> headers for file.
-        
+
         If user specified a custom filename, that will be returned instead
         of parsing the header.
-        
+
         Arguments:
             header {dict} -- Content-dispositon header
-        
+
         Returns:
             str -- Filename
         """
@@ -110,15 +110,15 @@ class GdGet:
             conf_key,
             url_id,
         )
-        r = self.session.get(url, stream=True)
-        return self._save_to_file(r, self._parse_file_name(r.headers["Content-Disposition"]))
+        response = self.session.get(url, stream=True)
+        return self._save_to_file(response, self._parse_file_name(response.headers["Content-Disposition"]))
 
     def download(self, url_id):
-        r = self.session.get("https://docs.google.com/uc?export=download&id=%s" % url_id)
+        response = self.session.get("https://docs.google.com/uc?export=download&id=%s" % url_id)
         # small text-based files are available on single call
         try:
             title = self._save_to_file(
-                r, self._parse_file_name(r.headers["Content-Disposition"])
+                response, self._parse_file_name(response.headers["Content-Disposition"])
             )
         except KeyError:
             # need confirmation for other files

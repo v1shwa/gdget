@@ -1,7 +1,6 @@
 """Gdget packaging settings."""
 
-from codecs import open
-from os.path import abspath, dirname, join
+import codecs
 from subprocess import call
 from setuptools import Command, find_packages, setup
 from gdget import __version__
@@ -29,7 +28,7 @@ setup(
     name="gdget",
     version=__version__,
     description="Google drive URLs downloader for command line.",
-    long_description=open("./README.rst").read(),
+    long_description=codecs.open("./README.rst").read(),
     url="https://github.com/v1shwa/gdget",
     author="Vishwa",
     author_email="v1shwa@yahoo.com",

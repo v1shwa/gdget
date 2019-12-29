@@ -2,28 +2,28 @@
 gdget
 
 Usage:
-	gdget <google-drive-url>
-	gdget -h | --help
-	gdget --version
+    gdget <google-drive-url>
+    gdget -h | --help
+    gdget --version
 
 Options:
-	-h --help                         Show this screen.
-	--version                         Show current gdget version.
+    -h --help                         Show this screen.
+    --version                         Show current gdget version.
 
 Examples:
-	gdget <google-drive-url>
+    gdget <google-drive-url>
 
 Help:
-	For help using this tool, please open an issue on the Github repository:
-	https://github.com/v1shwa/gdget
+    For any other help/issues using this tool, please open an issue on the Github repository:
+    https://github.com/v1shwa/gdget
 """
-from inspect import getmembers, isclass
 import argparse
 import sys
 from . import __version__ as VERSION
 
 
 def print_version():
+    """Prints gdget version number to stdout"""
     sys.stdout.write("GdGet %s\n" % VERSION)
 
 
