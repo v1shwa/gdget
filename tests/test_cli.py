@@ -15,11 +15,11 @@ class TestHelp(unittest.TestCase):
             pass
 
     def test_help_flag(self):
-        output = popen(['gdget', '-h'], stdout=PIPE).communicate()[0]
-        self.assertTrue('Google Drive' in str(output))
+        output = popen(["gdget", "-h"], stdout=PIPE).communicate()[0]
+        self.assertTrue("Google Drive" in str(output))
 
-        output = popen(['gdget', '--help'], stdout=PIPE).communicate()[0]
-        self.assertTrue('Google Drive' in str(output))
+        output = popen(["gdget", "--help"], stdout=PIPE).communicate()[0]
+        self.assertTrue("Google Drive" in str(output))
 
 
 class TestVersion(unittest.TestCase):
@@ -30,8 +30,9 @@ class TestVersion(unittest.TestCase):
             pass
 
     def test_version_flag(self):
-        output = popen(['gdget', '--version'], stdout=PIPE).communicate()[0]
+        output = popen(["gdget", "--version"], stdout=PIPE).communicate()[0]
         self.assertTrue(VERSION in str(output))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
